@@ -1,6 +1,9 @@
 import Hero from './components/Hero'
 import TrustAndIntroSection from './components/TrustAndIntroSection'
 import AchievementsGallery from '@/components/ui/image-gallery'
+import TimelineSection from './components/TimelineSection'
+import PremiumCtaSection from './components/PremiumCtaSection'
+import BeamWordmarkFooter from '@/components/ui/beam-wordmark-footer'
 
 export default function App() {
   return (
@@ -9,6 +12,9 @@ export default function App() {
       <TrustAndIntroSection>
         <AchievementsGallery />
       </TrustAndIntroSection>
+      <TimelineSection />
+      <PremiumCtaSection />
+      <BeamWordmarkFooter />
     </main>
   )
 }

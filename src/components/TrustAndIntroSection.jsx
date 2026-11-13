@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
@@ -87,14 +87,11 @@ export default function TrustAndIntroSection({ children }) {
       const allWordEls = Array.from(wordsContainerRef.current?.querySelectorAll('.blur-word') || [])
       const cards = galleryContainerRef.current?.querySelectorAll('.gallery-card') || []
 
-      // Split words: all words before the final two ("work seamlessly.")
-      // Further split wordsUpToWork into ascent (while rising from bottom 15% to top)
+      // Split words into ascent (while rising from bottom 85% to top)
       // and pinned (while stationary at top before cards enter) for uniform ~54px/word pacing.
-      const wordsUpToWork = allWordEls.slice(0, -2)
-      const ascentCount = Math.min(14, Math.max(1, Math.round(wordsUpToWork.length * 0.34)))
-      const ascentWords = wordsUpToWork.slice(0, ascentCount)
-      const pinnedWords = wordsUpToWork.slice(ascentCount)
-      const lastTwoWords = allWordEls.slice(-2)
+      const ascentCount = Math.min(14, Math.max(1, Math.round(allWordEls.length * 0.34)))
+      const ascentWords = allWordEls.slice(0, ascentCount)
+      const pinnedWords = allWordEls.slice(ascentCount)
 
       if (prefersReducedMotion) {
         gsap.set([techSectionRef.current, philosophyPillRef.current, philosophyPinnedRef.current], {
@@ -264,38 +261,15 @@ export default function TrustAndIntroSection({ children }) {
         )
       })
 
-      // SIMULTANEOUS ACTION 1: Progressively unblur the last two words ("work seamlessly.")
-      // Starts right at cardsStartTime as cards enter from below (exact proportional timing)
-      lastTwoWords.forEach((wordEl, idx) => {
-        pinnedTl.to(
-          wordEl,
-          {
-            filter: 'blur(0px)',
-            opacity: 1,
-            y: 0,
-            duration: 0.59,
-            ease: 'power1.out',
-          },
-          cardsStartTime + idx * 0.26
-        )
-      })
-
-      // SIMULTANEOUS ACTION 2: Master gallery upward movement begins at cardsStartTime
+      // SIMULTANEOUS ACTION 1: Master gallery upward movement begins at cardsStartTime
       // Continuous, linear scroll-scrubbed ascent across the exact runway
       const card6 = cards[5]
-      const stageEl = stageWrapperRef.current
-      const philEl = philosophyPinnedRef.current
 
-      // Dynamically compute Card 6 metrics & Philosophy overlay milestones
+      // Dynamically compute Card 6 metrics & Achievement entrance milestones
       const getCard6Metrics = () => {
         const vpH = window.innerHeight || 900
-        const stRect = stageEl ? stageEl.getBoundingClientRect() : null
-        const pRect = philEl ? philEl.getBoundingClientRect() : null
-
         const card6TopInGal = card6?.parentElement ? card6.parentElement.offsetTop : 1809
         const card6Height = card6 ? card6.offsetHeight : 497
-        const philTop = pRect && stRect ? pRect.top - stRect.top : 90
-        const philHeight = pRect ? pRect.height : 280
 
         // Fixed offset between Card 6 bottom edge and achievementsStageRef top (constant at every scroll step)
         const ACH_GAP = 135
@@ -308,29 +282,16 @@ export default function TrustAndIntroSection({ children }) {
         // Both Card 6 bottom and achievementsStageRef then travel exactly vpH px in lockstep -> 100% constant gap!
         const pAchStart = Math.max(0.1, Math.min(0.88, (-targetExitY + 10) / totalCard6Travel))
 
-        // Milestone 1: Card 6 reaches 80% coverage of Philosophy text (20% remaining from top)
-        const targetTop80 = philTop + 0.20 * philHeight
-        const p80 = Math.max(0.1, Math.min(0.92, (startY + card6TopInGal + 5 - targetTop80) / totalCard6Travel))
-
-        // Milestone 2: Card 6 reaches 100% coverage of Philosophy text
-        const targetTop100 = philTop
-        const p100 = Math.max(p80 + 0.01, Math.min(0.96, (startY + card6TopInGal + 5 - targetTop100) / totalCard6Travel))
-
         return {
           targetExitY,
           startY,
           totalTravel: totalCard6Travel,
           pAchStart,
-          p80,
-          p100,
         }
       }
 
       const initialMetrics = getCard6Metrics()
       const t_achStart = cardsStartTime + cardsDuration * initialMetrics.pAchStart
-      const t_cover80 = cardsStartTime + cardsDuration * initialMetrics.p80
-      const t_cover100 = cardsStartTime + cardsDuration * initialMetrics.p100
-      const philFadeDuration = Math.max(0.05, t_cover100 - t_cover80)
       const achDuration = Math.max(0.1, cardsStartTime + cardsDuration - t_achStart)
 
       if (achievementsStageRef.current && stageWrapperRef.current) {
@@ -386,15 +347,13 @@ export default function TrustAndIntroSection({ children }) {
       })
 
       // =============================================================
-      // SEQUENCE PART 3: RECREATE THE PROJECT CARD OVERLAY AND ACHIEVEMENT TRANSITION
-      // 1. Philosophy stays visually STATIONARY at y: 0 (strictly no upward translation).
-      // 2. Card 6 ("Chronicle Cinema") moves upward over Philosophy in the foreground (z-40).
-      // 3. When Card 6 reaches ~80% of Philosophy text area (t_cover80), Philosophy opacity begins reducing.
-      // 4. Over the remaining 20% coverage (up to t_cover100), Philosophy opacity fades out to 0 behind the card.
-      // 5. As Card 6 approaches top of viewport, Achievement (z-25) rises upward from below (y: innerHeight -> 0)
-      //    behind the moving card, acting as the seamless visual bridge.
-      // 6. As Card 6 moves beyond the top of viewport, Achievement reaches y: 0, taking over the screen.
-      // 7. Pinning releases naturally after transition completes.
+      // SEQUENCE PART 3: PHILOSOPHY EXIT & ACHIEVEMENT TRANSITION
+      // 1. As project cards ascend from below (cardsStartTime), Philosophy
+      //    smoothly fades out to opacity: 0 so it is completely removed
+      //    from the background as the cards enter and scroll through.
+      // 2. As Card 6 approaches top of viewport, Achievement (z-25) rises
+      //    upward from below (y: innerHeight -> 0), taking over the screen.
+      // 3. Pinning releases naturally after transition completes.
       // =============================================================
       pinnedTl.fromTo(
         philosophyPinnedRef.current,
@@ -405,10 +364,10 @@ export default function TrustAndIntroSection({ children }) {
         {
           opacity: 0,
           y: 0, // VISUALLY STATIONARY — strictly no upward translation!
-          duration: philFadeDuration,
+          duration: 0.45,
           ease: 'power1.out',
         },
-        t_cover80
+        cardsStartTime
       )
 
       if (achievementsStageRef.current) {

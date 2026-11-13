@@ -14,7 +14,8 @@ const MENU_ITEMS = [
   { label: "Philosophy", href: "#philosophy", shape: "3", targetId: "philosophy" },
   { label: "Projects", href: "#projects", shape: "4", targetId: "projects", fade: true },
   { label: "Achievements", href: "#achievements", shape: "5", targetId: "achievements" },
-  { label: "Contact", href: "https://www.yashtrivedi.dev", shape: "1", external: true },
+  { label: "Timeline", href: "#timeline", shape: "1", targetId: "timeline" },
+  { label: "Contact", href: "#contact", shape: "2", targetId: "contact" },
 ];
 
 export function Component({ onOpenChange }) {
