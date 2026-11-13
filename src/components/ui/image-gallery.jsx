@@ -62,7 +62,7 @@ export default function AchievementsGallery({
     <section
       id="achievements"
       className={cn(
-        "relative w-full bg-[#1A1A1A] text-[#F9F9F9] pt-12 pb-20 sm:pt-14 sm:pb-24 md:pt-14 md:pb-24 px-4 sm:px-6 md:px-8",
+        "relative w-full bg-transparent text-[#F9F9F9] pt-12 pb-20 sm:pt-14 sm:pb-24 md:pt-14 md:pb-24 px-4 sm:px-6 md:px-8",
         className
       )}
     >

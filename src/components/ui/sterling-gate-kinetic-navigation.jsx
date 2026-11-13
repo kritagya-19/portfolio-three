@@ -2,20 +2,22 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Register GSAP Plugins safely
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(CustomEase);
+  gsap.registerPlugin(CustomEase, ScrollTrigger);
 }
 
 const MENU_ITEMS = [
   { label: "Home", href: "#hero", shape: "1", targetId: "hero" },
-  { label: "Tech Stack", href: "#tech-stack", shape: "2", targetId: "tech-stack" },
-  { label: "Philosophy", href: "#philosophy", shape: "3", targetId: "philosophy" },
-  { label: "Projects", href: "#projects", shape: "4", targetId: "projects", fade: true },
-  { label: "Achievements", href: "#achievements", shape: "5", targetId: "achievements" },
-  { label: "Timeline", href: "#timeline", shape: "1", targetId: "timeline" },
-  { label: "Contact", href: "#contact", shape: "2", targetId: "contact" },
+  { label: "Stories", href: "#stories", shape: "2", targetId: "stories" },
+  { label: "Tech Stack", href: "#tech-stack", shape: "3", targetId: "tech-stack" },
+  { label: "Philosophy", href: "#philosophy", shape: "4", targetId: "philosophy" },
+  { label: "Projects", href: "#projects", shape: "5", targetId: "projects", fade: true },
+  { label: "Achievements", href: "#achievements", shape: "1", targetId: "achievements" },
+  { label: "Timeline", href: "#timeline", shape: "2", targetId: "timeline" },
+  { label: "Contact", href: "#contact", shape: "3", targetId: "contact" },
 ];
 
 export function Component({ onOpenChange }) {
@@ -234,7 +236,14 @@ export function Component({ onOpenChange }) {
       const spacer = targetEl.closest(".pin-spacer") || targetEl;
       const baseTop = spacer.getBoundingClientRect().top + window.scrollY;
 
-      if (item.targetId === "philosophy") {
+      if (item.targetId === "stories") {
+        const heroSt = ScrollTrigger.getById("hero-stories-st");
+        if (heroSt) {
+          window.scrollTo({ top: Math.max(0, heroSt.end - 4), behavior: "smooth" });
+        } else {
+          window.scrollTo({ top: baseTop + spacer.offsetHeight - window.innerHeight, behavior: "smooth" });
+        }
+      } else if (item.targetId === "philosophy") {
         // Land with the Philosophy statement cleanly pinned & sharp
         window.scrollTo({ top: baseTop + 1400, behavior: "smooth" });
       } else if (item.targetId === "projects") {

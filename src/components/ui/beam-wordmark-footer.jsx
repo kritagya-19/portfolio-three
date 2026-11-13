@@ -45,6 +45,7 @@ const DEFAULT_COLUMNS = [
     title: "Navigation",
     links: [
       { label: "Home", href: "#hero" },
+      { label: "Stories", href: "#stories" },
       { label: "Tech Stack", href: "#tech-stack" },
       { label: "Philosophy", href: "#philosophy" },
       { label: "Projects", href: "#projects" },
@@ -133,15 +134,13 @@ const isIconName = (v) => typeof v === "string" && v in ICONS
 
 // Clean matte scoped stylesheet: no beams, no shine, no glowing gradients.
 const CSS =
-  ".bwf{position:relative;isolation:isolate;overflow:hidden;container-type:inline-size;background:#1A1A1A;color:#F9F9F9;font-family:var(--bwf-sans);-webkit-font-smoothing:antialiased;touch-action:pan-y}" +
+  ".bwf{position:relative;isolation:isolate;overflow:hidden;container-type:inline-size;background:transparent;color:#F9F9F9;font-family:var(--bwf-sans);-webkit-font-smoothing:antialiased;touch-action:pan-y}" +
   ":where(.bwf) a{color:inherit;text-decoration:none}" +
   ":where(.bwf) button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer}" +
   ":where(.bwf) ul{list-style:none;margin:0;padding:0}" +
   ":where(.bwf) p{margin:0}" +
   ".bwf svg{max-width:none;display:block}" +
   ".bwf .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}" +
-  // Top border: clean subtle matte divider line matching portfolio standard
-  ".bwf-rule{position:absolute;left:0;right:0;top:0;height:1px;z-index:3;background:#3A3A3A}" +
   ".bwf-inner{position:relative;z-index:2;box-sizing:border-box;max-width:1120px;margin:0 auto;padding:clamp(48px,8.5cqw,104px) clamp(20px,6cqw,88px) 0;display:grid;grid-template-columns:minmax(0,1.62fr) minmax(0,.86fr) minmax(0,.86fr);column-gap:clamp(24px,4cqw,48px);row-gap:44px}" +
   ".bwf-label{font-size:12px;line-height:1;letter-spacing:.06em;text-transform:uppercase;color:#FDC3A1;padding-bottom:13px;position:relative;display:block}" +
   ".bwf-label::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:#3A3A3A;transform-origin:0 50%;transform:scaleX(var(--bwf-line,1));transition:transform 1.1s cubic-bezier(.2,.7,.1,1) var(--bwf-d,0ms)}" +
@@ -326,7 +325,6 @@ export default function BeamWordmarkFooter({
       data-in={seen || reduced ? "true" : "false"}
     >
       <style>{CSS}</style>
-      <div className="bwf-rule" aria-hidden="true" />
 
       <div className="bwf-inner">
         <div className="bwf-col">

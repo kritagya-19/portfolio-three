@@ -3,7 +3,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { Calendar, Sparkles, Code2, Cpu } from 'lucide-react'
-import TimelineWebGLCanvas from './TimelineWebGLCanvas'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
@@ -143,21 +142,8 @@ export default function TimelineSection() {
     <section
       id="timeline"
       ref={containerRef}
-      className="relative w-full bg-[#1A1A1A] text-[#F9F9F9] border-t border-[#3A3A3A]/70 py-24 sm:py-32 md:py-36 px-4 sm:px-6 md:px-8 overflow-hidden select-text"
+      className="relative w-full bg-transparent text-[#F9F9F9] pt-16 pb-24 sm:pt-20 sm:pb-32 md:pt-20 md:pb-36 px-4 sm:px-6 md:px-8 overflow-hidden select-text"
     >
-      {/* Hardware-accelerated WebGL Ambient Canvas */}
-      <TimelineWebGLCanvas />
-
-      {/* Top & Bottom Cinematic Edge Vignettes */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#1A1A1A] to-transparent pointer-events-none z-1"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#1A1A1A] to-transparent pointer-events-none z-1"
-      />
-
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Editorial Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20 md:mb-24">

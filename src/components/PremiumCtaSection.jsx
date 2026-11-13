@@ -30,7 +30,7 @@ export default function PremiumCtaSection() {
   return (
     <section
       id="contact"
-      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#1A1A1A] border-t border-[#3A3A3A]/70 py-24 sm:py-32 md:py-36 px-4 sm:px-6 md:px-8 select-text"
+      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-transparent py-24 sm:py-32 md:py-36 px-4 sm:px-6 md:px-8 select-text"
     >
       {/* Full-Screen Looping Cinematic Video Backdrop */}
       <video
@@ -41,21 +41,13 @@ export default function PremiumCtaSection() {
         playsInline
         preload="auto"
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none opacity-40 md:opacity-45"
+        className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none opacity-25 md:opacity-30 mix-blend-screen"
       />
 
-      {/* Dark Charcoal Scrim & Edge Vignettes for Strict Contrast */}
+      {/* Subtle Translucent Contrast Scrim */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-b from-[#1A1A1A] via-[#1A1A1A]/85 to-[#1A1A1A] pointer-events-none"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#1A1A1A] to-transparent pointer-events-none"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#1A1A1A] to-transparent pointer-events-none"
+        className="absolute inset-0 bg-[#1A1A1A]/35 pointer-events-none"
       />
 
       {/* Main Content Container */}

@@ -1,4 +1,3 @@
-import React from 'react'
 import LogoCloudSwap from '@/components/ui/logo-clouds'
 
 export default function Default() {

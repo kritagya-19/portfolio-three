@@ -58,10 +58,13 @@ const CURLS = {
 }
 // #endregion
 
-export default function Hero() {
+export default function Hero({ children }) {
   const pinContainerRef = useRef(null)
   const stageRef = useRef(null)
   const portraitRef = useRef(null)
+  const storiesLayerRef = useRef(null)
+  const storiesInnerRef = useRef(null)
+  const storiesRevealedRef = useRef(false)
 
   // Layer 1: Solid Cream Typography "YASH TRIVEDI" (Behind character, z-10)
   const solidLayerRef = useRef(null)
@@ -85,6 +88,12 @@ export default function Hero() {
   const scrollHintRef = useRef(null)
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [storiesRevealed, setStoriesRevealed] = useState(false)
+  const [prefersReducedMotion] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
 
   // Generate deterministic torn edges once
   const line = useMemo(() => tearLine(), [])
@@ -137,8 +146,6 @@ export default function Hero() {
     () => {
       if (!pinContainerRef.current) return
 
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
       if (prefersReducedMotion) {
         gsap.set(paperOverlayRef.current, { display: 'none' })
         gsap.set(
@@ -164,7 +171,28 @@ export default function Hero() {
         })
         gsap.set([solidYashRef.current, solidTrivediRef.current], { x: 0 })
         gsap.set(portraitRef.current, { scale: 1.0, opacity: 1, x: 0, y: 0 })
+        if (storiesLayerRef.current) {
+          gsap.set(storiesLayerRef.current, {
+            clipPath: 'none',
+            WebkitClipPath: 'none',
+            pointerEvents: 'auto',
+          })
+        }
         return
+      }
+
+      // Initialize portal CSS var & Stories overlay
+      gsap.set(pinContainerRef.current, { '--portal': 0 })
+      gsap.set(stageRef.current, { opacity: 1 })
+      if (storiesLayerRef.current) {
+        gsap.set(storiesLayerRef.current, { pointerEvents: 'none' })
+      }
+      if (storiesInnerRef.current) {
+        gsap.set(storiesInnerRef.current, {
+          scale: 0.92,
+          opacity: 0.25,
+          transformOrigin: '50% 50%',
+        })
       }
 
       // Initial clean poster: completely solid, zero dividing line
@@ -192,7 +220,10 @@ export default function Hero() {
       gsap.set(portraitRef.current, {
         opacity: 1,
         scale: 1.0,
+        x: 0,
         y: 0,
+        yPercent: 0,
+        transformOrigin: '50% 42%',
       })
 
       // "YASH TRIVEDI" typography starts completely hidden behind character
@@ -210,6 +241,7 @@ export default function Hero() {
         scaleY: 1.18,
         opacity: 0,
         filter: 'blur(8px)',
+        transformOrigin: '50% 50%',
       })
       gsap.set([solidYashRef.current, solidTrivediRef.current], { x: 0 })
       gsap.set(allLetters, { opacity: 0, y: 16 })
@@ -217,6 +249,7 @@ export default function Hero() {
       // Corner metadata starts hidden
       gsap.set([topLeftRef.current, topRightRef.current, bottomLeftRef.current, bottomRightRef.current], {
         opacity: 0,
+        x: 0,
         y: 10,
       })
 
@@ -336,17 +369,136 @@ export default function Hero() {
         0.75
       )
 
-      // PINNED SCROLLTRIGGER: Locks the loading screen fixed in the viewport!
-      // User scrolling directly drives the animation timeline.
+      // =========================================================
+      // PHASE 4: CINEMATIC HERO ZOOM-IN & LAYERED STORIES REVEAL
+      // Camera pushes forward into Hero while Stories expands
+      // smoothly over Hero via synchronized radial clip-path mask.
+      // =========================================================
+      const zoomStart = 0.98
+      const zoomDuration = 0.66
+
+      // Portrait pushes toward camera while preserving natural proportions
+      masterTl.to(
+        portraitRef.current,
+        {
+          scale: 1.56,
+          yPercent: 4,
+          duration: zoomDuration,
+          ease: 'power1.inOut',
+        },
+        zoomStart
+      )
+      masterTl.to(
+        portraitRef.current,
+        {
+          opacity: 0.15,
+          duration: 0.28,
+          ease: 'power1.out',
+        },
+        zoomStart + 0.36
+      )
+
+      // Background display typography expands with multi-plane parallax depth
+      masterTl.to(
+        solidLayerRef.current,
+        {
+          scaleX: 1.38,
+          scaleY: 1.72,
+          opacity: 0.08,
+          duration: zoomDuration,
+          ease: 'power1.inOut',
+        },
+        zoomStart
+      )
+
+      // Editorial corner anchors drift outward past frame edges & fade
+      masterTl.to(
+        topLeftRef.current,
+        { x: -36, y: -24, opacity: 0, duration: 0.34, ease: 'power1.in' },
+        zoomStart
+      )
+      masterTl.to(
+        topRightRef.current,
+        { x: 36, y: -24, opacity: 0, duration: 0.34, ease: 'power1.in' },
+        zoomStart
+      )
+      masterTl.to(
+        bottomLeftRef.current,
+        { x: -36, y: 24, opacity: 0, duration: 0.34, ease: 'power1.in' },
+        zoomStart
+      )
+      masterTl.to(
+        bottomRightRef.current,
+        { x: 36, y: 24, opacity: 0, duration: 0.34, ease: 'power1.in' },
+        zoomStart
+      )
+
+      // Synchronized circular portal cutout on Hero + clip-path expansion on Stories
+      masterTl.to(
+        pinContainerRef.current,
+        {
+          '--portal': 90,
+          duration: zoomDuration,
+          ease: 'power2.inOut',
+        },
+        zoomStart
+      )
+
+      // Subtle forward settle inside the incoming Stories scene
+      if (storiesInnerRef.current) {
+        masterTl.to(
+          storiesInnerRef.current,
+          {
+            scale: 1,
+            opacity: 1,
+            duration: zoomDuration * 0.92,
+            ease: 'power2.out',
+          },
+          zoomStart + 0.04
+        )
+      }
+
+      // Hero layer disappears completely once Stories fills viewport
+      masterTl.to(
+        stageRef.current,
+        {
+          opacity: 0,
+          duration: 0.08,
+          ease: 'none',
+        },
+        zoomStart + zoomDuration - 0.06
+      )
+
+      // Brief settle beat at full Stories before unpinning into normal scroll
+      masterTl.to({}, { duration: 0.1 }, zoomStart + zoomDuration)
+
+      // PINNED SCROLLTRIGGER: Locks stage in viewport across Hero + Stories takeover
       const st = ScrollTrigger.create({
+        id: 'hero-stories-st',
         trigger: pinContainerRef.current,
         start: 'top top',
-        end: '+=140%',
+        end: '+=240%',
         pin: true,
         pinSpacing: true,
-        scrub: 0.8,
+        scrub: 0.85,
         animation: masterTl,
         invalidateOnRefresh: true,
+        onUpdate: () => {
+          const rawPortal = parseFloat(
+            pinContainerRef.current?.style.getPropertyValue('--portal') || '0'
+          )
+          if (storiesLayerRef.current) {
+            storiesLayerRef.current.style.pointerEvents = rawPortal >= 22 ? 'auto' : 'none'
+          }
+          const shouldReveal = rawPortal >= 18
+          if (shouldReveal && !storiesRevealedRef.current) {
+            storiesRevealedRef.current = true
+            setStoriesRevealed(true)
+          } else if (rawPortal < 4 && storiesRevealedRef.current) {
+            storiesRevealedRef.current = false
+            setStoriesRevealed(false)
+          }
+        },
       })
 
       return () => {
@@ -354,19 +506,40 @@ export default function Hero() {
         masterTl.kill()
       }
     },
-    { scope: pinContainerRef }
+    { scope: pinContainerRef, dependencies: [prefersReducedMotion] }
   )
 
   return (
-    <div ref={pinContainerRef} className="relative w-full h-[100svh] min-h-[560px] bg-[#1A1A1A] select-none">
+    <div
+      ref={pinContainerRef}
+      className={
+        prefersReducedMotion
+          ? 'relative w-full h-auto bg-transparent select-none'
+          : 'relative w-full h-[100svh] min-h-[600px] bg-transparent select-none'
+      }
+    >
       {/* ========================================================= */}
-      {/* HERO SECTION STAGE (Underneath Torn Paper)                */}
+      {/* HERO SECTION STAGE (Underneath Torn Paper & Stories Mask) */}
       {/* ========================================================= */}
       <div
         id="hero"
         ref={stageRef}
-        className="relative w-full h-full min-h-[560px] bg-[#1A1A1A] overflow-hidden select-none"
-        style={{ backgroundColor: '#1A1A1A' }}
+        className={
+          prefersReducedMotion
+            ? 'relative w-full h-[100svh] min-h-[600px] bg-[#1A1A1A] overflow-hidden select-none'
+            : 'relative w-full h-full min-h-[600px] bg-[#1A1A1A] overflow-hidden select-none'
+        }
+        style={
+          prefersReducedMotion
+            ? { backgroundColor: '#1A1A1A' }
+            : {
+                backgroundColor: '#1A1A1A',
+                maskImage:
+                  'radial-gradient(circle at 50% 50%, transparent calc(var(--portal, 0) * 1vmax), black calc(var(--portal, 0) * 1vmax))',
+                WebkitMaskImage:
+                  'radial-gradient(circle at 50% 50%, transparent calc(var(--portal, 0) * 1vmax), black calc(var(--portal, 0) * 1vmax))',
+              }
+        }
       >
         {/* ========================================================= */}
         {/* EDITORIAL CORNERS (Inter Font, #F4E7CD Cream)              */}
@@ -672,6 +845,35 @@ export default function Hero() {
           </div>
         </div>
       </div>
+
+      {/* ========================================================= */}
+      {/* LAYER 4: STORIES PORTAL REVEAL OVERLAY (z-index: 45)      */}
+      {/* Expands synchronously via clip-path over Hero on scroll   */}
+      {/* ========================================================= */}
+      {children && (
+        <div
+          ref={storiesLayerRef}
+          className={
+            prefersReducedMotion
+              ? 'relative w-full min-h-[85vh] z-[45] overflow-hidden'
+              : 'absolute inset-0 w-full h-full z-[45] overflow-hidden pointer-events-none'
+          }
+          style={
+            prefersReducedMotion
+              ? undefined
+              : {
+                  clipPath: 'circle(calc(var(--portal, 0) * 1vmax) at 50% 50%)',
+                  WebkitClipPath: 'circle(calc(var(--portal, 0) * 1vmax) at 50% 50%)',
+                }
+          }
+        >
+          <div ref={storiesInnerRef} className="w-full h-full flex items-center justify-center">
+            {typeof children === 'function'
+              ? children({ revealed: prefersReducedMotion ? true : storiesRevealed })
+              : children}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

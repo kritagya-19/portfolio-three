@@ -394,7 +394,7 @@ export default function TrustAndIntroSection({ children }) {
   return (
     <section
       ref={containerRef}
-      className="relative w-full bg-[#1A1A1A] text-[#F9F9F9] overflow-x-hidden"
+      className="relative w-full bg-transparent text-[#F9F9F9] overflow-x-hidden"
     >
       {/* ========================================================= */}
       {/* 1. TECHNICAL COMPONENT (Animated Logo Cloud)               */}
@@ -416,7 +416,7 @@ export default function TrustAndIntroSection({ children }) {
       <div
         id="philosophy"
         ref={stageWrapperRef}
-        className="relative w-full min-h-screen pt-[7vh] sm:pt-[8.5vh] md:pt-[10vh] pb-20 bg-[#1A1A1A]"
+        className="relative w-full min-h-screen pt-[7vh] sm:pt-[8.5vh] md:pt-[10vh] pb-20 bg-transparent"
       >
         {/* Philosophy Component (Layered underneath cards: z-10) */}
         <div

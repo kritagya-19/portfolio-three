@@ -98,7 +98,7 @@ export default function LogoCloudSwap({
   return (
     <section
       className={cn(
-        'relative w-full bg-[#1A1A1A] px-4 pt-16 sm:pt-24 md:pt-28 pb-6 sm:pb-10 md:pb-12 flex flex-col items-center justify-center text-center',
+        'relative w-full bg-transparent px-4 pt-16 sm:pt-24 md:pt-28 pb-6 sm:pb-10 md:pb-12 flex flex-col items-center justify-center text-center',
         className
       )}
     >
