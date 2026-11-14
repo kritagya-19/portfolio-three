@@ -160,7 +160,7 @@ function usePrefersReducedMotion() {
 export default function TigerTearReveal({
   children,
   word = "PORTFOLIO",
-  tagline = "Welcome to",
+  tagline = "Welcome to my",
   ink = "#F4E7CD",
   paper = "#1A1A1A",
   taglineColor = "#8E8677",

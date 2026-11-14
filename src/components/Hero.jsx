@@ -697,7 +697,7 @@ export default function Hero({ children }) {
                   textTransform: 'uppercase',
                 }}
               >
-                Welcome to
+                Welcome to my
               </text>
               <text
                 x={CX}
@@ -744,7 +744,7 @@ export default function Hero({ children }) {
                       textTransform: 'uppercase',
                     }}
                   >
-                    Welcome to
+                    Welcome to my
                   </text>
                   <text
                     x={CX}
@@ -795,7 +795,7 @@ export default function Hero({ children }) {
                       textTransform: 'uppercase',
                     }}
                   >
-                    Welcome to
+                    Welcome to my
                   </text>
                   <text
                     x={CX}

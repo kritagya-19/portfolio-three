@@ -5,47 +5,47 @@ const DEFAULT_ACHIEVEMENTS = [
   {
     id: 1,
     year: "2025",
-    title: "Production Design System Lead",
+    title: "1st Place — National Hackathon",
     description:
-      "Architected a modular React & GSAP component library powering high-traffic interactive web applications.",
-    src: "https://cdn.21st.dev/assets/mirror/21/21bf561c0452c2fae65a5c747aeba0996e6942fcb8eb3e628c50478f458065c5.jpg",
-    alt: "Production Design System Achievement",
+      "Shipped an AI-assisted full stack workflow engine within 36 hours ahead of 120+ competing engineering teams.",
+    src: "/s1.jpeg",
+    alt: "National Hackathon First Place Achievement",
   },
   {
     id: 2,
     year: "2025",
-    title: "1st Place — National Web Summit",
+    title: "Production Design System Lead",
     description:
-      "Built and shipped an AI-assisted full stack workflow engine within 36 hours ahead of 120+ competing teams.",
-    src: "https://cdn.21st.dev/assets/mirror/7c/7c873d1af9cfb98c26de10dc98e807bcec8de8321936158d1b0e82c6b7f73d0c.jpg",
-    alt: "National Web Summit First Place Achievement",
+      "Architected a modular React & GSAP component library powering high-traffic interactive web applications with sub-second FCP.",
+    src: "/s6.jpeg",
+    alt: "Production Design System Lead Achievement",
   },
   {
     id: 3,
     year: "2024",
-    title: "99+ Core Web Vitals Benchmark",
+    title: "Enterprise Architecture & Scale",
     description:
-      "Optimized rendering pipelines and bundle delivery across enterprise platforms to sub-second FCP.",
-    src: "https://cdn.21st.dev/assets/mirror/35/350edca6de5b00194dbba8be86d6fc51f9192901ed127fd67855f369ff3bc9e5.jpg",
-    alt: "Core Web Vitals Benchmark Achievement",
+      "Delivered 15+ end-to-end scalable web applications and resilient backend microservices with 99.9% uptime benchmarks.",
+    src: "/s7.jpeg",
+    alt: "Enterprise Architecture & Scalable Platforms Achievement",
   },
   {
     id: 4,
     year: "2024",
-    title: "15+ Shipped Client Platforms",
+    title: "Cupertino Design Excellence",
     description:
-      "Delivered end-to-end scalable SaaS, e-commerce, and creative web experiences from concept to deployment.",
-    src: "https://cdn.21st.dev/assets/mirror/dc/dc1338c2544ff95224a36bff0cd432e122417e6250bfd0ff82fbfceacfbf3283.jpg",
-    alt: "Shipped Client Platforms Achievement",
+      "Selected for immersive technical exploration at Apple Park, studying world-class interface ergonomics and design systems.",
+    src: "/s5.jpeg",
+    alt: "Apple Park Design Excellence Achievement",
   },
   {
     id: 5,
     year: "2023",
-    title: "Featured Interactive Portfolio",
+    title: "Rapid Prototyping & Sprint Lead",
     description:
-      "Recognized for pairing editorial typography, kinetic scroll choreography, and resilient full-stack engineering.",
-    src: "https://cdn.21st.dev/assets/mirror/ba/ba6557999b707efbaa73506debbc594e0703c071fdfc05951c9b355f0ad078e8.jpg",
-    alt: "Featured Interactive Portfolio Achievement",
+      "Spearheaded intensive collaborative engineering sprints, translating wireframes into high-velocity production code.",
+    src: "/s2.jpeg",
+    alt: "Collaborative Rapid Prototyping Achievement",
   },
 ];
 

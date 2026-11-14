@@ -6,6 +6,33 @@ import LogoCloudSwap from '@/components/ui/logo-clouds'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
+// Sub-component to render video or fallback image for project cards
+function ProjectCardMedia({ card }) {
+  if (card?.video) {
+    return (
+      <video
+        src={card.video}
+        poster={card.src}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+      />
+    )
+  }
+
+  return (
+    <img
+      src={card?.src}
+      alt={card?.alt}
+      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+      loading="lazy"
+    />
+  )
+}
+
 export default function TrustAndIntroSection({ children }) {
   const containerRef = useRef(null)
 
@@ -35,41 +62,41 @@ export default function TrustAndIntroSection({ children }) {
     ['that', 'look', 'distinctive,', 'feel', 'intuitive,', 'and', 'work', 'seamlessly.'],
   ]
 
-  // Six website project cards with live URLs, project names, and preview images
+  // Six website project cards with live URLs, project names, and preview hero images
   const projectCards = [
     {
       id: 1,
       title: 'Aura Studio',
       url: 'https://github.com',
-      src: '/projects/project-1.jpg',
+      src: '/3.png',
       alt: 'Aura Studio Website Project',
     },
     {
       id: 2,
       title: 'Lumina Brand',
       url: 'https://github.com',
-      src: '/projects/project-2.jpg',
+      src: '/2.png',
       alt: 'Lumina Brand Website Project',
     },
     {
       id: 3,
-      title: 'Vertex Platform',
+      title: 'On Track',
       url: 'https://github.com',
-      src: '/projects/project-3.jpg',
-      alt: 'Vertex Platform Website Project',
+      src: '/1.png',
+      alt: 'On Track Website Project',
     },
     {
       id: 4,
       title: 'Verve Spatial',
       url: 'https://github.com',
-      src: '/projects/project-4.jpg',
+      src: '/4.png',
       alt: 'Verve Spatial Website Project',
     },
     {
       id: 5,
       title: 'Siren Creative',
       url: 'https://github.com',
-      src: '/projects/project-5.jpg',
+      src: '/5.png',
       alt: 'Siren Creative Website Project',
     },
     {
@@ -77,6 +104,7 @@ export default function TrustAndIntroSection({ children }) {
       title: 'Chronicle Cinema',
       url: 'https://github.com',
       src: '/projects/project-6.jpg',
+      video: '/3.mp4',
       alt: 'Chronicle Cinema Website Project',
     },
   ]
@@ -477,12 +505,7 @@ export default function TrustAndIntroSection({ children }) {
               className="gallery-card block w-full md:w-[39%] aspect-[4/3.8] rounded-2xl md:rounded-3xl overflow-hidden border border-[#3A3A3A]/70 bg-[#232323] shadow-2xl hover:border-[#FDC3A1]/50 transition-colors duration-500 group pointer-events-auto relative z-40 cursor-pointer"
               style={{ zIndex: 40 }}
             >
-              <img
-                src={projectCards[0].src}
-                alt={projectCards[0].alt}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                loading="lazy"
-              />
+              <ProjectCardMedia card={projectCards[0]} />
               {/* Minimal Editorial Hover Overlay: Project Name + Click Indicator */}
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1A1A1A]/95 via-[#1A1A1A]/55 to-transparent pt-12 pb-4 sm:pb-5 px-4 sm:px-5 md:px-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out flex items-end justify-between gap-3 pointer-events-none">
                 <h3 className="font-bebas text-xl sm:text-2xl md:text-3xl tracking-wide uppercase text-[#F4E7CD] leading-none truncate">
@@ -502,12 +525,7 @@ export default function TrustAndIntroSection({ children }) {
               className="gallery-card block w-full md:w-[27%] aspect-[3/3.6] md:mt-12 lg:mt-16 rounded-2xl md:rounded-3xl overflow-hidden border border-[#3A3A3A]/70 bg-[#232323] shadow-2xl hover:border-[#FDC3A1]/50 transition-colors duration-500 group pointer-events-auto relative z-40 cursor-pointer"
               style={{ zIndex: 40 }}
             >
-              <img
-                src={projectCards[1].src}
-                alt={projectCards[1].alt}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                loading="lazy"
-              />
+              <ProjectCardMedia card={projectCards[1]} />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1A1A1A]/95 via-[#1A1A1A]/55 to-transparent pt-10 pb-3.5 sm:pb-4 px-3.5 sm:px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out flex items-end justify-between gap-2 pointer-events-none">
                 <h3 className="font-bebas text-lg sm:text-xl md:text-2xl tracking-wide uppercase text-[#F4E7CD] leading-none truncate">
                   {projectCards[1].title}
@@ -528,12 +546,7 @@ export default function TrustAndIntroSection({ children }) {
               className="gallery-card block w-full md:w-[52%] aspect-[16/11] rounded-2xl md:rounded-3xl overflow-hidden border border-[#3A3A3A]/70 bg-[#232323] shadow-2xl hover:border-[#FDC3A1]/50 transition-colors duration-500 group pointer-events-auto relative z-40 cursor-pointer"
               style={{ zIndex: 40 }}
             >
-              <img
-                src={projectCards[2].src}
-                alt={projectCards[2].alt}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                loading="lazy"
-              />
+              <ProjectCardMedia card={projectCards[2]} />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1A1A1A]/95 via-[#1A1A1A]/55 to-transparent pt-14 pb-4 sm:pb-5 px-4 sm:px-6 md:px-7 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out flex items-end justify-between gap-3 pointer-events-none">
                 <h3 className="font-bebas text-2xl sm:text-3xl md:text-4xl tracking-wide uppercase text-[#F4E7CD] leading-none truncate">
                   {projectCards[2].title}
@@ -555,12 +568,7 @@ export default function TrustAndIntroSection({ children }) {
               className="gallery-card block w-full md:w-[30%] aspect-[4/2.8] rounded-2xl md:rounded-3xl overflow-hidden border border-[#3A3A3A]/70 bg-[#232323] shadow-2xl hover:border-[#FDC3A1]/50 transition-colors duration-500 group pointer-events-auto relative z-40 cursor-pointer"
               style={{ zIndex: 40 }}
             >
-              <img
-                src={projectCards[3].src}
-                alt={projectCards[3].alt}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                loading="lazy"
-              />
+              <ProjectCardMedia card={projectCards[3]} />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1A1A1A]/95 via-[#1A1A1A]/55 to-transparent pt-10 pb-3.5 sm:pb-4 px-3.5 sm:px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out flex items-end justify-between gap-2 pointer-events-none">
                 <h3 className="font-bebas text-lg sm:text-xl md:text-2xl tracking-wide uppercase text-[#F4E7CD] leading-none truncate">
                   {projectCards[3].title}
@@ -579,12 +587,7 @@ export default function TrustAndIntroSection({ children }) {
               className="gallery-card block w-full md:w-[42%] aspect-[4/3] rounded-2xl md:rounded-3xl overflow-hidden border border-[#3A3A3A]/70 bg-[#232323] shadow-2xl hover:border-[#FDC3A1]/50 transition-colors duration-500 group pointer-events-auto relative z-40 cursor-pointer"
               style={{ zIndex: 40 }}
             >
-              <img
-                src={projectCards[4].src}
-                alt={projectCards[4].alt}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                loading="lazy"
-              />
+              <ProjectCardMedia card={projectCards[4]} />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1A1A1A]/95 via-[#1A1A1A]/55 to-transparent pt-12 pb-4 sm:pb-5 px-4 sm:px-5 md:px-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out flex items-end justify-between gap-3 pointer-events-none">
                 <h3 className="font-bebas text-xl sm:text-2xl md:text-3xl tracking-wide uppercase text-[#F4E7CD] leading-none truncate">
                   {projectCards[4].title}
@@ -605,12 +608,7 @@ export default function TrustAndIntroSection({ children }) {
               className="gallery-card block w-full aspect-[18/9] sm:aspect-[2.35/1] rounded-2xl md:rounded-3xl overflow-hidden border border-[#3A3A3A]/70 bg-[#232323] shadow-2xl hover:border-[#FDC3A1]/50 transition-colors duration-500 group pointer-events-auto relative z-40 cursor-pointer"
               style={{ zIndex: 40 }}
             >
-              <img
-                src={projectCards[5].src}
-                alt={projectCards[5].alt}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                loading="lazy"
-              />
+              <ProjectCardMedia card={projectCards[5]} />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1A1A1A]/95 via-[#1A1A1A]/55 to-transparent pt-16 pb-5 sm:pb-6 px-5 sm:px-7 md:px-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out flex items-end justify-between gap-4 pointer-events-none">
                 <h3 className="font-bebas text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-wide uppercase text-[#F4E7CD] leading-none truncate">
                   {projectCards[5].title}

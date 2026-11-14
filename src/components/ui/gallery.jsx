@@ -6,12 +6,6 @@ import { ArrowLeft, ArrowRight, X, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
-import storyStudioDusk from "@/assets/images/story_studio_dusk_1794575700546.jpg";
-import storyBrutalistLight from "@/assets/images/story_brutalist_light_1794575700004.jpg";
-import storyAnalogCamera from "@/assets/images/story_analog_camera_1794575699874.jpg";
-import storyNightTransit from "@/assets/images/story_night_transit_1794575700587.jpg";
-import storyCoffeeSketchbook from "@/assets/images/story_coffee_sketchbook_1794575701027.jpg";
-
 const STORY_PHOTOS = [
   {
     id: 1,
@@ -24,13 +18,13 @@ const STORY_PHOTOS = [
     yMobile: -56,
     zIndex: 50,
     direction: "left",
-    src: storyStudioDusk,
-    alt: "Late-evening studio workstation illuminated by an amber desk lamp",
-    title: "After-Hours Architecture",
-    category: "Workspace",
-    date: "Autumn 2025",
+    src: "/s1.jpeg",
+    alt: "Yash Trivedi and team winning 1st place championship trophy at hackathon",
+    title: "Hackathon Victory",
+    category: "Milestone",
+    date: "Spring 2025",
     caption:
-      "Quiet evening build sessions where systems architecture, type hierarchy, and kinetic motion prototypes come together.",
+      "Standing on stage holding the first-place championship trophy after 36 hours of non-stop architectural design and rapid engineering.",
   },
   {
     id: 2,
@@ -43,13 +37,13 @@ const STORY_PHOTOS = [
     yMobile: -44,
     zIndex: 40,
     direction: "left",
-    src: storyBrutalistLight,
-    alt: "Warm afternoon sunlight cutting across concrete and steel gallery stairs",
-    title: "Geometry & Shadow",
-    category: "Architecture",
-    date: "Winter 2025",
+    src: "/s2.jpeg",
+    alt: "Midnight sprint and team collaborative workspace",
+    title: "Midnight Sprint",
+    category: "Teamwork",
+    date: "Summer 2025",
     caption:
-      "Finding layout discipline in brutalist concrete lines and directional natural light—the same rhythm behind my grid systems.",
+      "Deep late-night collaborative build session—aligning technical logic, performance tuning, and frontend craft under tight delivery cycles.",
   },
   {
     id: 3,
@@ -62,13 +56,13 @@ const STORY_PHOTOS = [
     yMobile: 4,
     zIndex: 30,
     direction: "right",
-    src: storyAnalogCamera,
-    alt: "Vintage rangefinder camera and leather field journal on dark slate",
-    title: "Tactile Craft",
-    category: "Analog",
-    date: "Spring 2025",
+    src: "/s3.jpeg",
+    alt: "Systems architecture and code review discussion",
+    title: "Architecture Review",
+    category: "Engineering",
+    date: "Autumn 2025",
     caption:
-      "Shooting 35mm film trains patience and deliberate framing before a single pixel or line of shader code is written.",
+      "Analyzing component hierarchies, data flows, and state management strategies to ensure resilience across production workloads.",
   },
   {
     id: 4,
@@ -81,13 +75,13 @@ const STORY_PHOTOS = [
     yMobile: 78,
     zIndex: 20,
     direction: "right",
-    src: storyNightTransit,
-    alt: "Warm city headlights reflecting across wet asphalt after dusk",
-    title: "Midnight Transit",
-    category: "Street",
-    date: "Monsoon 2025",
+    src: "/s4.jpeg",
+    alt: "Product sprint planning and developer roadmap discussion",
+    title: "Sprint Alignment",
+    category: "Strategy",
+    date: "Winter 2025",
     caption:
-      "Warm sodium reflections against deep charcoal asphalt—the exact contrast balance that inspired this portfolio's palette.",
+      "Translating complex product requirements into actionable sprint goals and intuitive, delightful user interactions.",
   },
   {
     id: 5,
@@ -100,13 +94,13 @@ const STORY_PHOTOS = [
     yMobile: 90,
     zIndex: 10,
     direction: "left",
-    src: storyCoffeeSketchbook,
-    alt: "Open wireframe sketchbook with matte fountain pen and espresso cup",
-    title: "Paper Before Pixels",
-    category: "Process",
-    date: "Summer 2025",
+    src: "/s5.jpeg",
+    alt: "Yash Trivedi visiting Apple Park in Cupertino",
+    title: "Cupertino Calling",
+    category: "Inspiration",
+    date: "2025",
     caption:
-      "Every interface starts on paper—mapping interaction choreography, scroll timing, and structural proportions by hand.",
+      "Experiencing the design rigor and human-centered engineering at Apple Park—a continuous inspiration for minimal and intentional craft.",
   },
 ];
 
